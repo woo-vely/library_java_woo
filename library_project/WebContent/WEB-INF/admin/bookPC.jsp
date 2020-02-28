@@ -10,7 +10,7 @@
 </head>
 <body>
 bookPC
-<my:navbar />
+<my:admin_navbar />
 <my:footer />
 </body>
 </html>

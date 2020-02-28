@@ -1,33 +1,35 @@
-package app.controller.admin;
+package app.controller.user;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import app.bean.Admin;
-import app.repository.AdminRepo;
+import app.bean.Book;
+import app.repository.BookRepo;
 
 /**
- * Servlet implementation class AdminLoginServlet
+ * Servlet implementation class UserBookSearchServlet
  */
-@WebServlet("/admin/login")
-public class AdminLoginServlet extends HttpServlet {
+@WebServlet("/user/bookSearch")
+public class UserBookSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    String path = "/WEB-INF/admin/login.jsp";
-    private AdminRepo repo;
+    private String path = "/WEB-INF/user/search.jsp";
+    private BookRepo bookRepo;
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
     @Override
     public void init() throws ServletException {
     	super.init();
-    	repo = new AdminRepo();
+    	this.bookRepo = new BookRepo();
     }
-    public AdminLoginServlet() {
+    public UserBookSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,25 +45,30 @@ public class AdminLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		String pw = request.getParameter("password");
+		String type = request.getParameter("type");
+		String bSearch = request.getParameter("bookSearch");
 		
-		Admin a = repo.getAdmin(id, pw);
-		
-		if(a != null) {
-			HttpSession s = request.getSession();
-			s.setAttribute("loginAdmin", a);
-			response.sendRedirect(request.getContextPath()+"/admin/main");
-		}else {
-			System.out.println("login error");
-			request.getRequestDispatcher(path).forward(request, response);
+		if(type.equals("title")) {
+			Book b = bookRepo.searchBookByTitle(bSearch);
+			
+			
+		}
+		if(type.equals("auth")) {
+			List<Book> list = bookRepo.searchBookAuth(bSearch);
+			request.setAttribute("bSearchResult", list);
+		}
+		if(type.equals("publ")) {
+			List<Book> list = bookRepo.searchBookByPubl(bSearch);
+		}
+		if(type.equals("pyb")) {
+			List<Book> list = bookRepo.searchBookByPyb(bSearch);
+			
+			
 		}
 		
 	}
 
 }
-
-
 
 
 

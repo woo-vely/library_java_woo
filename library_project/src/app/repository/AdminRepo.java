@@ -32,7 +32,9 @@ public class AdminRepo {
 		return true;
 	}
 
-	public boolean loginAdmin(Admin admin) {
+	public Admin getAdmin(String id, String pw) {
+		Admin admin = null;
+		
 		String sql = "SELECT * FROM ADMIN"
 				+ " WHERE ID = ?"
 				+ " AND PASSWORD = ?";
@@ -40,20 +42,38 @@ public class AdminRepo {
 		try(Connection con = DBCP.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql)){
 			
-			stmt.setString(1, admin.getId());
-			stmt.setString(2, admin.getPassword());
+			stmt.setString(1, id);
+			stmt.setString(2, pw);
 			
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				admin.setId(admin.getId());
-				admin.setPassword(admin.getPassword());
+				admin = new Admin();
+				admin.setId(id);
+				admin.setPassword(pw);
+			
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
+		return admin;
 	}
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

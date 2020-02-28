@@ -1,0 +1,30 @@
+member
+
+memberid varchar not null (pk)
+pw varchar not null
+name varchar not null
+email varchar not null
+gender(?)
+
+
+book
+
+book_number number not null (pk)
+name varchar not null
+author varchar not null
+genre varchar not null
+date date 
+
+
+manager
+
+managerid varchar not null(pk)
+pw varchar not null
+name varchar not null
+
+rent
+
+rent_date date not null
+return_date date not null
+book_number (fk)
+memberid (fk)

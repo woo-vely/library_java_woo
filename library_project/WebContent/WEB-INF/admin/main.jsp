@@ -10,7 +10,7 @@
 </head>
 <body>
 	관리자 페이지
-	<my:navbar />
+	<my:admin_navbar />
 	<my:footer />
 </body>
 </html>

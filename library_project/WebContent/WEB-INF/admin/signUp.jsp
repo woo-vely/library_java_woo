@@ -12,8 +12,8 @@
 
 </head>
 <body>
-	signUp
-	<my:navbar />
+	admin signUp
+	<my:admin_navbar />
 	
 	<div>
 		<c:url value = "/admin/signUp" var = "signUpUrl" />	<!-- c:url 안에 들어가있으면 jsp코드로 인식 -->

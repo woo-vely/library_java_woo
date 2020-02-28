@@ -9,15 +9,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	login
-	<my:navbar />
+	admin login
+	<my:admin_navbar />
 	
 	<div>
 		<form method = "post">
 			<label>아이디</label>
 			<input name = "id" value = "${loginAdmin.id }"><br>
 			<label>비밀번호</label>
-			<input name = "pw" value = "${loginAdmin.password }">
+			<input name = "password" type = "password" value = "${loginAdmin.password }">
 			<input type = "submit" value = "login">
 		</form>
 	</div>

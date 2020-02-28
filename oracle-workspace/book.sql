@@ -10,7 +10,9 @@ create table book(
     brch_code number not null
 );
 
-select * from book;
+select auth from book;
+
+delete from book where brch_code = 3;
 
 --bookNo이 마지막인 컬럼 보기
 select * from(
@@ -19,3 +21,4 @@ where rownum = 1;
 
 --book테이블의 행 갯수 확인
 select count(bookNo) from book;
+commit;

@@ -1,4 +1,4 @@
-package app.controller.admin;
+package app.controller.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,28 +6,28 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import app.bean.Admin;
-import app.repository.AdminRepo;
+import app.bean.User;
+import app.repository.UserRepo;
 
 /**
- * Servlet implementation class AdminLoginServlet
+ * Servlet implementation class UserSignUpServlet
  */
-@WebServlet("/admin/login")
-public class AdminLoginServlet extends HttpServlet {
+@WebServlet("/user/signUp")
+public class UserSignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    String path = "/WEB-INF/admin/login.jsp";
-    private AdminRepo repo;
+	private String path = "/WEB-INF/user/signUp.jsp";
+    private UserRepo userRepo;
     /**
      * @see HttpServlet#HttpServlet()
      */
+    
     @Override
     public void init() throws ServletException {
     	super.init();
-    	repo = new AdminRepo();
+    	this.userRepo = new UserRepo(); 
     }
-    public AdminLoginServlet() {
+    public UserSignUpServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,33 +45,26 @@ public class AdminLoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("password");
+		String name = request.getParameter("name");
+		String gender = request.getParameter("gender");
 		
-		Admin a = repo.getAdmin(id, pw);
+		User u = new User();
+		u.setId(id);
+		u.setPassword(pw);
+		u.setName(name);
+		u.setGender(gender);
 		
-		if(a != null) {
-			HttpSession s = request.getSession();
-			s.setAttribute("loginAdmin", a);
-			response.sendRedirect(request.getContextPath()+"/admin/main");
+		boolean ok = userRepo.addUser(u);
+		
+		if(ok) {
+			System.out.println("signup ok");
+			response.sendRedirect(request.getContextPath()+"/user/main");
 		}else {
-			System.out.println("login error");
-			request.getRequestDispatcher(path).forward(request, response);
+			System.out.println("signup error");
+			doGet(request, response);
 		}
+		
 		
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

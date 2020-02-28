@@ -13,8 +13,8 @@
 		<button><a href = "${adminMain }">admin</a></button>
 	</div>
 	<div>
-		<c:url value = "/user/main" var = "adminMain" />
-		<button>user</button>
+		<c:url value = "/user/main" var = "userMain" />
+		<button><a href = "${userMain }">user</a></button>
 	</div>
 </body>
 </html>

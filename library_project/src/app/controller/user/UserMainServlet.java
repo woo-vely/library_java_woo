@@ -1,4 +1,4 @@
-package app.controller.admin;
+package app.controller.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,28 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import app.bean.Admin;
-import app.repository.AdminRepo;
 
 /**
- * Servlet implementation class AdminLoginServlet
+ * Servlet implementation class UserMainServlet
  */
-@WebServlet("/admin/login")
-public class AdminLoginServlet extends HttpServlet {
+@WebServlet("/user/main")
+public class UserMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    String path = "/WEB-INF/admin/login.jsp";
-    private AdminRepo repo;
+    private String path = "/WEB-INF/user/main.jsp";
     /**
      * @see HttpServlet#HttpServlet()
      */
-    @Override
-    public void init() throws ServletException {
-    	super.init();
-    	repo = new AdminRepo();
-    }
-    public AdminLoginServlet() {
+    public UserMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,35 +33,8 @@ public class AdminLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		String pw = request.getParameter("password");
-		
-		Admin a = repo.getAdmin(id, pw);
-		
-		if(a != null) {
-			HttpSession s = request.getSession();
-			s.setAttribute("loginAdmin", a);
-			response.sendRedirect(request.getContextPath()+"/admin/main");
-		}else {
-			System.out.println("login error");
-			request.getRequestDispatcher(path).forward(request, response);
-		}
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
